@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+
+.controls {
+  text-align: center;
+  font-size: 20px;
+}
+
+.heb {
+  font-family: 'Tinos', serif;
+  font-size: 30px;
+}
+
+.eng {
+  font-size: 20px;
+  color: gray;
+}
+
+.center {
+  text-align: center;
+  font-size: 30px;
+}

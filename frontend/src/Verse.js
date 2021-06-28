@@ -5,13 +5,15 @@ function Verse(props) {
   const [text, setText] = useState(0);
 
   useEffect( () => {
-		  return fetch('http://localhost:5000/'+props.lang)
+		  return fetch('http://localhost:5000/'+props.lang+"?chapter=0&verse="+props.verse)
 		  .then(data => data.json())
 		  .then(x => setText(x))
-  }, [props.lang])
+  }, [props.lang, props.verse])
+
+console.log(props.verse)
 
   return (
-    <div>
+    <div class={props.lang}>
       <p>{text}</p>
     </div>
   );
