@@ -6,14 +6,17 @@ import VerseSelector from './VerseSelector';
 
 function App() {
   const  [verse, setVerse] = useState(0)
+  const  [chapter, setChapter] = useState(0)
 
   return (
     <div>
-          <VerseSelector verse={verse} setVerse={setVerse} />
+          <VerseSelector verse={verse} setVerse={setVerse} 
+                         chapter={chapter} setChapter={setChapter} />
+
           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
           <div class="center">
-            <Verse lang="heb" verse={verse}/>
-            <Verse lang="eng" verse={verse}/>
+            <Verse lang="heb" chapter={chapter} verse={verse}/>
+            <Verse lang="eng" chapter={chapter} verse={verse}/>
           </div>
     </div>
   );

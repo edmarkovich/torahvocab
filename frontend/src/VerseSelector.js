@@ -1,14 +1,31 @@
+import React, { useState, useEffect } from 'react';
 
 
 function VerseSelector(props) {
-    function next() { props.setVerse(props.verse+1) }
+
+    const [shape, setShape] = useState([]);
+
+    function next() { 
+        props.setVerse(props.verse+1) 
+        if (props.verse+1 == shape[props.chapter]) {
+            props.setChapter(props.chapter+1)
+            props.setVerse(0)
+        }
+    }
     function prev() { props.setVerse(props.verse-1) }
+
+
+    useEffect( () => {
+        return fetch('http://localhost:5000/shape')
+        .then(data => data.json())
+        .then(x => setShape(x))
+    }, [])
 
     return (
         <div  class="controls" >
         <span onClick={next}>Next</span>&nbsp;📜&nbsp;
         <span onClick={prev}>Previous</span><br/>
-        Genesis 1:{props.verse+1}
+        Genesis {props.chapter+1}:{props.verse+1} / {shape[props.chapter]}
         </div>    
     )
 }

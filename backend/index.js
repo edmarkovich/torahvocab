@@ -11,7 +11,6 @@ app.use(Express.static('public'))
 app.use(cors())
 
 function sendTextFromDB(title, versionTitle, chapter, verse, response) {
-    console.log(chapter, verse)
     collection.find({"title":title, 
 		     "versionTitle":versionTitle}).toArray((error, result) => {
         if(error) {
@@ -36,6 +35,15 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
     response);
   });
 
+  app.get("/shape", (request, response) => {
+    collection.find({"title":"Genesis", 
+        "versionTitle":"Tanach with Nikkud"}).toArray((error, result) => {
+            if(error) {
+                return response.status(500).send(error);
+            }
+            response.send(result[0].chapter.map(x => x.length));
+        });
+  });
 
 app.listen(5000, () => {
 

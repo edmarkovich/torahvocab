@@ -5,7 +5,7 @@ function Verse(props) {
   const [text, setText] = useState(0);
 
   useEffect( () => {
-		  return fetch('http://localhost:5000/'+props.lang+"?chapter=0&verse="+props.verse)
+		  return fetch('http://localhost:5000/'+props.lang+"?chapter="+props.chapter+"&verse="+props.verse)
 		  .then(data => data.json())
 		  .then(x => setText(x))
   }, [props.lang, props.verse])
