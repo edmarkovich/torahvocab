@@ -14,7 +14,7 @@ function App() {
                          chapter={chapter} setChapter={setChapter} />
 
           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-          <div class="center">
+          <div className="center">
             <Verse lang="heb" chapter={chapter} verse={verse}/>
             <Verse lang="eng" chapter={chapter} verse={verse}/>
           </div>

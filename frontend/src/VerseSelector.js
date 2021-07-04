@@ -7,7 +7,7 @@ function VerseSelector(props) {
 
     function next() { 
         props.setVerse(props.verse+1) 
-        if (props.verse+1 == shape[props.chapter]) {
+        if (props.verse+1 === shape[props.chapter]) {
             props.setChapter(props.chapter+1)
             props.setVerse(0)
         }
@@ -22,7 +22,7 @@ function VerseSelector(props) {
     }, [])
 
     return (
-        <div  class="controls" >
+        <div  className="controls" >
         <span onClick={next}>Next</span>&nbsp;📜&nbsp;
         <span onClick={prev}>Previous</span><br/>
         Genesis {props.chapter+1}:{props.verse+1} / {shape[props.chapter]}
