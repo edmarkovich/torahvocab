@@ -5,6 +5,12 @@ function Word(props) {
   const [wordFreqCount, setWordFreqCount] = useState("");
 
 
+  function defineWord() {
+    if (props.setSelectedWord) {
+      props.setSelectedWord(props.children)
+    }
+
+  }
 
   useEffect( 
     () => {
@@ -12,10 +18,15 @@ function Word(props) {
     }, [] )
 
   if (wordFreqCount>0) {
-    return <span style={{color: "pink", cursor: "pointer"}}>
+    return <span 
+        style={{color: "pink", cursor: "pointer"}}
+        onClick={defineWord}>
       {props.children} </span>
   } else {
-    return <span>{props.children} </span>
+return <span 
+        style={{cursor: "pointer"}}
+        onClick={defineWord}>
+      {props.children} </span>
   }
 
 }

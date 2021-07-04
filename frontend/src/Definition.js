@@ -7,14 +7,15 @@ function Definition(props) {
   const [definition, setDefinition] = useState(null);
 
 
-
-  var target = remove(props.word, { removeVowels: true, removeShinDot: true, removeSinDot: true })
-
+ 
   useEffect( () => {
-    return fetch('http://localhost:5000/word/') //todo +target
+    if(!props.word) return;
+    var target = remove(props.word, { removeVowels: true, removeShinDot: true, removeSinDot: true })  
+
+    return fetch('http://localhost:5000/word/' +target)
     .then(data => {console.log(data); return data.json()})
     .then(x => setDefinition(x))
-}, [target])
+}, [props.word])
 
 if (!definition) return <i>wait</i>
 console.log(definition)

@@ -9,6 +9,7 @@ import Definition from './Definition';
 function App() {
   const  [verse, setVerse] = useState(0)
   const  [chapter, setChapter] = useState(0)
+  const  [selectedWord, setSelectedWord] = useState(null)
 
   return (
     <div>
@@ -17,12 +18,13 @@ function App() {
 
           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
           <div className="center">
-            <Verse lang="heb" chapter={chapter} verse={verse}/>
+            <Verse lang="heb" chapter={chapter} verse={verse} 
+              setSelectedWord={setSelectedWord}/>
             <Verse lang="eng" chapter={chapter} verse={verse}/>
           </div>
 
           <br/><br/><br/>
-          <Definition word="בְּרֵאשִׁית" />
+          <Definition word={selectedWord} />
     </div>
   );
 }

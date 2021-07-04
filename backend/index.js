@@ -45,8 +45,8 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
         });
   });
 
-  app.get("/word", (request, response) => {
-    word_form.find({"form":"בראשית"}).toArray()
+  app.get("/word/:word", (request, response) => {
+    word_form.find({"form":request.params['word']}).toArray()
     .then(result => [...new Set(result.map(x=>x.lookups[0].headword))]) //TODO: not just 1st
     .then(headword => lexicon_entry.find({headword: { "$in": headword }}).toArray())
     .then(result => result.map(x => x.content.senses.map(y=>y.definition))) 
