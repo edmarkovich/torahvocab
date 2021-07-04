@@ -17,7 +17,7 @@ function Verse(props) {
 
   return (
     <div className={props.lang}>
-      {arr.map(x => {return <Word>{x}</Word>})}
+      {arr.map((x, idx) => {return <Word key={idx}>{x}</Word>})}
     </div>
   );
 }

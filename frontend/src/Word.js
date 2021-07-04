@@ -2,18 +2,22 @@
 import React, { useState, useEffect } from 'react';
 
 function Word(props) {
-  const [text, setText] = useState("");
+  const [wordFreqCount, setWordFreqCount] = useState("");
 
-  /*useEffect( () => {
-		  return fetch('http://localhost:5000/'+props.lang+"?chapter="+props.chapter+"&verse="+props.verse)
-		  .then(data => data.json())
-		  .then(x => setText(x[0]))
-  }, [props.lang, props.verse, props.chapter])
-*/
 
-  return (
-    <b>[{props.children}]</b>
-  );
+
+  useEffect( 
+    () => {
+        setWordFreqCount( Math.random() > .5?5:0)
+    }, [] )
+
+  if (wordFreqCount>0) {
+    return <span style={{color: "pink", cursor: "pointer"}}>
+      {props.children} </span>
+  } else {
+    return <span>{props.children} </span>
+  }
+
 }
 
 export default Word;

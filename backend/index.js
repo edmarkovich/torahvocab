@@ -45,6 +45,15 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
         });
   });
 
+  app.get("/word", (request, response) => {
+    word_form.find({"form":"בראשית"}).toArray()
+    .then(result => [...new Set(result.map(x=>x.lookups[0].headword))]) //TODO: not just 1st
+    .then(headword => lexicon_entry.find({headword: { "$in": headword }}).toArray())
+    .then(result => result.map(x => x.content.senses.map(y=>y.definition))) 
+    .then(x => {response.send(x.flat())})
+  })
+
+
 app.listen(5000, () => {
 
   MongoClient.connect("mongodb://localhost", { useNewUrlParser: true }, (error, client) => {
@@ -53,6 +62,9 @@ app.listen(5000, () => {
         }
         database = client.db("sefaria");
         collection = database.collection("texts");
+        word_form  = database.collection("word_form")
+        lexicon_entry  = database.collection("lexicon_entry")
+
         console.log("Connected");
     });
 

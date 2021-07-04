@@ -3,6 +3,8 @@ import './App.css';
 
 import Verse from './Verse';
 import VerseSelector from './VerseSelector';
+import Definition from './Definition';
+
 
 function App() {
   const  [verse, setVerse] = useState(0)
@@ -18,6 +20,9 @@ function App() {
             <Verse lang="heb" chapter={chapter} verse={verse}/>
             <Verse lang="eng" chapter={chapter} verse={verse}/>
           </div>
+
+          <br/><br/><br/>
+          <Definition word="בְּרֵאשִׁית" />
     </div>
   );
 }
