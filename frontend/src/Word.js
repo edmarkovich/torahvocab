@@ -19,7 +19,7 @@ function Word(props) {
 
   if (wordFreqCount>0) {
     return <span 
-        style={{color: "pink", cursor: "pointer"}}
+        style={{color: "p1ink", cursor: "pointer"}}
         onClick={defineWord}>
       {props.children} </span>
   } else {

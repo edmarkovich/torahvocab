@@ -46,11 +46,12 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
   });
 
   app.get("/word/:word", (request, response) => {
+      console.log(request.params['word']), 
     word_form.find({"form":request.params['word']}).toArray()
-    .then(result => [...new Set(result.map(x=>x.lookups[0].headword))]) //TODO: not just 1st
+    .then(result => [...new Set(result.map(x=>x.lookups.map(y=>y.headword)).flat())]) //TODO: not just 1st
     .then(headword => lexicon_entry.find({headword: { "$in": headword }}).toArray())
-    .then(result => result.map(x => x.content.senses.map(y=>y.definition))) 
-    .then(x => {response.send(x.flat())})
+    .then(result => result.map(x => x.content/*.senses.map(y=>y.definition)*/)) 
+    .then(x => {response.send(x)})
   })
 
 
