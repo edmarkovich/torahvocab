@@ -9,12 +9,12 @@ function Verse(props) {
   useEffect( () => {
 		  return fetch('http://localhost:5000/'
           +props.lang
-          +"?book=Deuteronomy"
+          +"?book="+props.book
           +"&chapter="+props.chapter
           +"&verse="+props.verse)
 		  .then(data => data.json())
 		  .then(x => setText(x[0]))
-  }, [props.lang, props.verse, props.chapter])
+  }, [props.lang, props.verse, props.chapter, props.book])
 
   var arr = text.split(' ')
   console.log("split:", arr)

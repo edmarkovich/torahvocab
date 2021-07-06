@@ -3,9 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 function VerseSelector(props) {
 
-    const [shape, setShape] = useState([]);
-    const [book, setBook]   = useState("Genesis")
- 
+    const [shape, setShape] = useState([]); 
     const books = ["Genesis"  ,  "Exodus"  ,  "Leviticus"  ,  "Numbers"  ,  "Deuteronomy"]
 
     function next() { 
@@ -18,36 +16,36 @@ function VerseSelector(props) {
     function prev() { props.setVerse(props.verse-1) }
 
     function nextBook() {
-      var idx = books.indexOf(book)
+      var idx = books.indexOf(props.book)
       if (idx < books.length-1) {
-        setBook(books[idx+1])
+        props.setBook(books[idx+1])
       }
     }
 
     function prevBook() {
-      var idx = books.indexOf(book)
+      var idx = books.indexOf(props.book)
       if (idx > 0) {
-        setBook(books[idx-1])
+        props.setBook(books[idx-1])
       }
     }  
 
     useEffect( () => {
-        return fetch('http://localhost:5000/shape?book='+book)
+        return fetch('http://localhost:5000/shape?book='+props.book)
         .then(data => data.json())
         .then(x => setShape(x))
-    }, [book])
+    }, [props.book])
 
     return (
-        <div className="controls" >
+        <div className="controls" style={{cursor: "pointer"}}>
           <span onClick={nextBook}>←</span>
-          {book} 
+          {props.book} 
           <span onClick={prevBook}>→</span>
 
-        <br/>
+          <br/>
 
-        {props.chapter+1}:{props.verse+1} / {shape[props.chapter]}
-        <span onClick={next}>Next</span>&nbsp;📜&nbsp;
-        <span onClick={prev}>Previous</span><br/>
+          <span onClick={next}>←</span>
+          {props.chapter+1}:{props.verse+1}
+          <span onClick={prev}>→</span><br/>
         </div>    
     )
 }

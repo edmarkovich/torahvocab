@@ -3,7 +3,12 @@ const cors = require('cors')
 const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
+var morgan = require('morgan')
+
+
 var app = Express();
+app.use(morgan('combined'))
+
 app.use(BodyParser.json());
 app.use(BodyParser.urlencoded({ extended: true }));
 
@@ -21,8 +26,8 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
 }
 
  app.get("/heb", (request, response) => {
-
-     sendTextFromDB(request.query.book, "Tanach with Nikkud", 
+    console.log(request.query)
+    sendTextFromDB(request.query.book, "Tanach with Nikkud", 
         request.query.chapter, 
         request.query.verse, 
         response);
