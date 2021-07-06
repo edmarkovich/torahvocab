@@ -17,11 +17,10 @@ function Verse(props) {
   }, [props.lang, props.verse, props.chapter, props.book])
 
   var arr = text.split(' ')
-  console.log("split:", arr)
 
   return (
     <div className={props.lang}>
-      {arr.map((x, idx) => {return <Word key={idx} 
+      {arr.map((x, idx) => {return <Word key={idx} wordFreqs={props.wordFreqs}
       setSelectedWord={props.setSelectedWord}>{x}</Word>})}
     </div>
   );

@@ -12,19 +12,22 @@ function Word(props) {
 
   }
 
+
+
   useEffect( 
     () => {
-        setWordFreqCount( Math.random() > .5?5:0)
-    }, [] )
+      if (!props.wordFreqs) return
+      setWordFreqCount(props.wordFreqs[props.children])
+    }, [props.wordFreqs, props.children] )
 
-  if (wordFreqCount>0) {
-    return <span 
-        style={{color: "pink", cursor: "pointer"}}
+  if (wordFreqCount>1) {
+    return <span title={"Occurs:" + wordFreqCount}
+        style={{color: "black", cursor: "pointer"}}
         onClick={defineWord}>
       {props.children} </span>
   } else {
 return <span 
-        style={{cursor: "pointer"}}
+        style={{color: "gray", cursor: "pointer"}}
         onClick={defineWord}>
       {props.children} </span>
   }

@@ -13,7 +13,7 @@ function Definition(props) {
 
     return fetch('http://localhost:5000/word/' +target)
     .then(data => {return data.json()})
-    .then(x => {console.log("XXX",x); return setDefinition(x)})
+    .then(x => {return setDefinition(x)})
 }, [props.word])
 
 if (!definition) return <i>wait</i>
