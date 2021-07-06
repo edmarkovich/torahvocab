@@ -47,20 +47,19 @@ function VerseSelector(props) {
 
     return (
         <div className="controls" style={{cursor: "pointer"}}>
-          <span onClick={nextBook}>←</span>
+          <span onClick={nextBook} className="arrow">←</span>
           {props.book} 
-          <span onClick={prevBook}>→</span>
+          <span onClick={prevBook} className="arrow">→</span>
 
-          <br/>
-
-
-          <span onClick={nextChap}>←</span>
+          <span onClick={nextChap} className="arrow">←</span>
           {props.chapter+1}
-          <span onClick={prevChap}>→</span>
+          <span onClick={prevChap} className="arrow">→</span>
+
           :
-          <span onClick={nextVerse}>←</span>
+
+          <span onClick={nextVerse} className="arrow">←</span>
           {props.verse+1}
-          <span onClick={prevVerse}>→</span><br/>
+          <span onClick={prevVerse} className="arrow">→</span><br/>
         </div>    
     )
 }

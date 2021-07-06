@@ -38,7 +38,7 @@
 }
 
 .controls {
-  text-align: center;
+  text-align: left;
   font-size: 20px;
 }
 
@@ -55,4 +55,9 @@
 .center {
   text-align: center;
   font-size: 30px;
+}
+
+.arrow {
+  color: gray;
+  user-select: none;
 }
