@@ -36,7 +36,7 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
   });
 
   app.get("/shape", (request, response) => {
-    collection.find({"title":"Genesis", 
+    collection.find({"title":request.query.book, 
         "versionTitle":"Tanach with Nikkud"}).toArray((error, result) => {
             if(error) {
                 return response.status(500).send(error);

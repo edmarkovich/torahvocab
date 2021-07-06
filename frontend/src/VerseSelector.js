@@ -16,7 +16,7 @@ function VerseSelector(props) {
 
 
     useEffect( () => {
-        return fetch('http://localhost:5000/shape')
+        return fetch('http://localhost:5000/shape?book=Leviticus')
         .then(data => data.json())
         .then(x => setShape(x))
     }, [])
