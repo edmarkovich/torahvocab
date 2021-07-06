@@ -6,14 +6,24 @@ function VerseSelector(props) {
     const [shape, setShape] = useState([]); 
     const books = ["Genesis"  ,  "Exodus"  ,  "Leviticus"  ,  "Numbers"  ,  "Deuteronomy"]
 
-    function next() { 
+    function nextVerse() { 
         props.setVerse(props.verse+1) 
         if (props.verse+1 === shape[props.chapter]) {
             props.setChapter(props.chapter+1)
             props.setVerse(0)
         }
     }
-    function prev() { props.setVerse(props.verse-1) }
+    function prevVerse() { props.setVerse(props.verse-1) }
+
+    function nextChap() {
+      props.setChapter(props.chapter+1)
+      props.setVerse(0)
+    }
+
+    function prevChap() {
+      props.setChapter(props.chapter-1)
+      props.setVerse(0)
+    }
 
     function nextBook() {
       var idx = books.indexOf(props.book)
@@ -43,9 +53,14 @@ function VerseSelector(props) {
 
           <br/>
 
-          <span onClick={next}>←</span>
-          {props.chapter+1}:{props.verse+1}
-          <span onClick={prev}>→</span><br/>
+
+          <span onClick={nextChap}>←</span>
+          {props.chapter+1}
+          <span onClick={prevChap}>→</span>
+          :
+          <span onClick={nextVerse}>←</span>
+          {props.verse+1}
+          <span onClick={prevVerse}>→</span><br/>
         </div>    
     )
 }
