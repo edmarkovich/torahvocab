@@ -3,7 +3,8 @@ const cors = require('cors')
 const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectID;
-var morgan = require('morgan')
+var morgan = require('morgan');
+const { request, response } = require("express");
 
 
 var app = Express();
@@ -51,7 +52,6 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
   });
 
   app.get("/word/:word", (request, response) => {
-      console.log(request.params['word']), 
     word_form.find({"form":request.params['word']}).toArray()
     .then(result => [...new Set(result.map(x=>x.lookups.map(y=>y.headword)).flat())]) //TODO: not just 1st
     .then(headword => lexicon_entry.find({headword: { "$in": headword }}).toArray())
@@ -59,6 +59,25 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
     .then(x => {response.send(x)})
   })
 
+  app.get("/word_freqs", (request, response) => {
+    collection.find({versionTitle: "Tanach with Nikkud", 
+        title: {$in: ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"]}} )
+        .map(x => x.chapter).toArray((error,result) => {
+            if (error) return response.status(500).send(error);
+            var words_split = result.flat(10).map(x=>x.split(" ")).flat(2)
+            var words = {} 
+            words_split.forEach(element => {
+                words[element] = ( typeof words[element] != 'undefined' ) ? words[element]+=1 : 1    
+            });
+
+            var out = {}
+            for (key in words) {
+                out[key] = words[key]
+              }
+            
+            response.send(out)
+        })
+  })
 
 app.listen(5000, () => {
 
