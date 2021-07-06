@@ -22,14 +22,14 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
 
  app.get("/heb", (request, response) => {
 
-     sendTextFromDB("Genesis", "Tanach with Nikkud", 
+     sendTextFromDB(request.query.book, "Tanach with Nikkud", 
         request.query.chapter, 
         request.query.verse, 
         response);
   });
 
  app.get("/eng", (request, response) => {
-    sendTextFromDB("Genesis", "The Koren Jerusalem Bible",         
+    sendTextFromDB(request.query.book, "The Koren Jerusalem Bible",         
     request.query.chapter, 
     request.query.verse, 
     response);
