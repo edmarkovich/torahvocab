@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 function VerseSelector(props) {
 
     const [shape, setShape] = useState([]); 
+    const [bookmarkLoaded, setBookmarkLoaded] = useState(false)
     const books = ["Genesis"  ,  "Exodus"  ,  "Leviticus"  ,  "Numbers"  ,  "Deuteronomy"]
 
     function nextVerse() { 
@@ -30,6 +31,7 @@ function VerseSelector(props) {
       if (idx < books.length-1) {
         props.setBook(books[idx+1])
       }
+      saveBookmark()
     }
 
     function prevBook() {
@@ -44,6 +46,35 @@ function VerseSelector(props) {
         .then(data => data.json())
         .then(x => setShape(x))
     }, [props.book])
+
+    useEffect( () => {
+      if (bookmarkLoaded) return
+      setBookmarkLoaded(true)
+      return fetch('http://localhost:5000/user/ed/bookmark')
+      .then(data => data.json())
+      .then(x => {      
+        props.setBook(x.book)
+        props.setChapter(x.chapter)
+        props.setVerse(x.verse)
+      })
+    }, [bookmarkLoaded])
+
+    useEffect( () => {
+      saveBookmark()
+    }, [props.book, props.chapter, props.verse])
+
+    function saveBookmark() {
+      fetch('http://localhost:5000/user/ed/bookmark', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify({book: props.book, chapter: props.chapter, verse: props.verse, dir:"out"})
+      })
+    }
+    
+    
 
     return (
         <div className="controls" style={{cursor: "pointer"}}>

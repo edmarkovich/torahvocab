@@ -1,20 +1,16 @@
 const Express = require("express");
 const cors = require('cors')
-const BodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
-const ObjectId = require("mongodb").ObjectID;
 var morgan = require('morgan');
-const { request, response } = require("express");
-
+var bodyParser = require('body-parser')
 
 var app = Express();
-app.use(morgan('combined'))
+//app.use(morgan('combined'))
 
-app.use(BodyParser.json());
-app.use(BodyParser.urlencoded({ extended: true }));
 
 app.use(Express.static('public'))
 app.use(cors())
+app.use(bodyParser.json())
 
 function sendTextFromDB(title, versionTitle, chapter, verse, response) {
     collection.find({"title":title, 
@@ -27,7 +23,6 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
 }
 
  app.get("/heb", (request, response) => {
-    console.log(request.query)
     sendTextFromDB(request.query.book, "Tanach with Nikkud", 
         request.query.chapter, 
         request.query.verse, 
@@ -59,6 +54,18 @@ function sendTextFromDB(title, versionTitle, chapter, verse, response) {
     .then(x => {response.send(x)})
   })
 
+  app.get("/user/ed/bookmark", (request, response) => {
+    console.log("heres my load")
+    bookmarks.findOne({user:"ed"})
+    .then(x => response.send(x))
+  });
+  
+  app.put("/user/ed/bookmark", (request, response) => {
+    console.log("put it in me", request.body)
+    bookmarks.replaceOne({user:"ed"}, { ...request.body, user:"ed" }, {upsert: true})
+    response.send({})
+  }); 
+
   app.get("/word_freqs", (request, response) => {
     collection.find({versionTitle: "Tanach with Nikkud", 
         title: {$in: ["Genesis","Exodus","Leviticus","Numbers","Deuteronomy"]}} )
@@ -89,6 +96,7 @@ app.listen(5000, () => {
         collection = database.collection("texts");
         word_form  = database.collection("word_form")
         lexicon_entry  = database.collection("lexicon_entry")
+        bookmarks = database.collection("bookmarks")
 
         console.log("Connected");
     });
